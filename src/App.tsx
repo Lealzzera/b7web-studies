@@ -1,26 +1,54 @@
-import React from 'react'
+import { useReducer } from "react"
 
 type reducerState = {
   count: number;
-}
+};
 
 type reducerAction = {
   type: string;
+  payload?: number
+}
 
+const initialState = { count: 0 };
+
+const reducer = (state: reducerState, action: reducerAction) => {
+  switch (action.type) {
+    case 'ADD':
+      return { ...state, count: state.count + 1 };
+      break;
+    case 'DEL':
+      if (state.count > 0) {
+        return { ...state, count: state.count - 1 };
+      }
+      break;
+    case 'RESET':
+      return initialState;
+      break;
+  };
+  return state;
 }
 
 const App = () => {
-  const initialState = { count: 0 };
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  const reducer = (state: reducerState, action: reducerAction) => {
-    return state
+  const add = () => {
+    return dispatch({ type: 'ADD' });
   }
 
-  const [state, dispatch] = React.useReducer(reducer, initialState);
+  const remove = () => {
+    return dispatch({ type: 'DEL' });
+  }
 
-  return (
-    <div>App</div>
-  )
+  const reset = () => {
+    return dispatch({ type: 'RESET' });
+  }
+  return <div className="p-5">
+    Contagem: {state.count}
+    <hr />
+    <button className="p-3" onClick={add}>Adicionar</button>
+    <button className="p-3" onClick={remove}>Remover</button>
+    <button className="p-3" onClick={reset}>Resetar</button>
+  </div>
 }
 
 export default App
