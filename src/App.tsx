@@ -1,53 +1,24 @@
-import { useReducer } from "react"
-
-type reducerState = {
-  count: number;
-};
-
-type reducerAction = {
-  type: string;
-  payload?: number
-}
-
-const initialState = { count: 0 };
-
-const reducer = (state: reducerState, action: reducerAction) => {
-  switch (action.type) {
-    case 'ADD':
-      return { ...state, count: state.count + 1 };
-      break;
-    case 'DEL':
-      if (state.count > 0) {
-        return { ...state, count: state.count - 1 };
-      }
-      break;
-    case 'RESET':
-      return initialState;
-      break;
-  };
-  return state;
-}
-
+import { useContagem } from "./reducers/contagem";
 const App = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [contagemState, contagemDispatch] = useContagem();
 
-  const add = () => {
-    return dispatch({ type: 'ADD' });
-  }
+  const adicionar = () => {
+    return contagemDispatch({ typeAction: 'ADD' });
+  };
 
-  const remove = () => {
-    return dispatch({ type: 'DEL' });
-  }
+  const remover = () => {
+    return contagemDispatch({ typeAction: 'DEL' });
+  };
 
-  const reset = () => {
-    return dispatch({ type: 'RESET' });
-  }
-  return <div className="p-5">
-    Contagem: {state.count}
+  const resetar = () => {
+    return contagemDispatch({ typeAction: 'RESET' });
+  };
+
+  return <div className='p-5'>Contagem: {contagemState.count}
     <hr />
-    <button className="p-3" onClick={add}>Adicionar</button>
-    <button className="p-3" onClick={remove}>Remover</button>
-    <button className="p-3" onClick={reset}>Resetar</button>
+    <button onClick={adicionar} className="p-5">Adicionar</button>
+    <button onClick={remover} className="p-5">Remover</button>
+    <button onClick={resetar} className="p-5">Resetar</button>
   </div>
 }
 
