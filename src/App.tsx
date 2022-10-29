@@ -1,25 +1,30 @@
-import { useContagem } from "./reducers/contagem";
+import { useContagem } from "./reducers/contagem"
+
 const App = () => {
-  const [contagemState, contagemDispatch] = useContagem();
+  const [stateContagem, dispatchContagem] = useContagem()
 
   const adicionar = () => {
-    return contagemDispatch({ typeAction: 'ADD' });
+    return dispatchContagem({ typeAction: 'ADD' });
   };
 
   const remover = () => {
-    return contagemDispatch({ typeAction: 'DEL' });
+    return dispatchContagem({ typeAction: 'DEL' });
   };
 
   const resetar = () => {
-    return contagemDispatch({ typeAction: 'RESET' });
+    return dispatchContagem({ typeAction: 'RESET' });
   };
 
-  return <div className='p-5'>Contagem: {contagemState.count}
-    <hr />
-    <button onClick={adicionar} className="p-5">Adicionar</button>
-    <button onClick={remover} className="p-5">Remover</button>
-    <button onClick={resetar} className="p-5">Resetar</button>
-  </div>
+  return (
+    <div className="p-3">
+      <h1>Contagem: {stateContagem.count}</h1>
+      <hr />
+      <button onClick={adicionar} className="p-5">Adicionar</button>
+      <button onClick={remover} className="p-5">Remover</button>
+      <button onClick={resetar} className="p-5">Resetar</button>
+    </div>
+
+  )
 }
 
 export default App

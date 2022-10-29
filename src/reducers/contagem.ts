@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer } from "react"
 
 type reducerState = {
   count: number;
@@ -6,12 +6,9 @@ type reducerState = {
 
 type reducerAction = {
   typeAction: string;
-};
+}
 
-const initialState = {
-  count: 0
-};
-
+const initialState = { count: 0 };
 const reducer = (state: reducerState, action: reducerAction) => {
   switch (action.typeAction) {
     case 'ADD':
@@ -20,7 +17,7 @@ const reducer = (state: reducerState, action: reducerAction) => {
     case 'DEL':
       if (state.count > 0) {
         return { ...state, count: state.count - 1 };
-      };
+      }
       break;
     case 'RESET':
       return initialState;
@@ -29,5 +26,5 @@ const reducer = (state: reducerState, action: reducerAction) => {
 }
 
 export const useContagem = () => {
-  return useReducer(reducer, initialState)
-} 
+  return useReducer(reducer, initialState);
+}
